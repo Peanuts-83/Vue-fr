@@ -14,32 +14,32 @@
 				Bienvenue dans notre café {{ restaurantName }}! Nous sommes réputés pour
 				notre pain et nos merveilleuses pâtisseries. Faites vous plaisir dès le
 				matin ou avec un goûter réconfortant. Mais attention, vous verrez qu'il
-				est difficile de s'arrêter.
+				est difficile de s'arrêter...
 			</p>
 
-			<section class="menu">
+			<section class="menu" >
 				<h2>Menu</h2>
-				<div class="menu-item">
+				<div class="menu-item" v-for="item in simpleMenu">
 					<img
 						class="menu-item__image"
-						src="https://via.placeholder.com/300x150"
-						alt=""
+						:src="item.image.source"
+						:alt="item.image.alt"
 					/>
 					<div>
-						<h3>Nom de l'article</h3>
-						<p>En stock</p>
-						<p>En rupture de stock</p>
+						<h3>{{ item.name }}</h3>
+						<p v-if="item.inStock">En stock</p>
+						<p style="color: red" v-else>En rupture de stock</p>
 						<div>
-							<label for="add-item-quantity">Quantité :</label>
-							<input id="add-item-quantity" type="number" />
-							<button>Ajouter au panier d'achat</button>
+							<label for="add-item-quantity" v-if="item.inStock">Quantité : {{ item.quantity }}</label>
+							<input id="add-item-quantity" type="number" v-model="item.quantity" v-if="item.inStock"/>
+							<button @click="addToShoppingCart(item.quantity)" v-if="item.inStock">Ajouter au panier d'achat  </button>
 						</div>
 					</div>
 				</div>
 			</section>
 
 			<aside class="shopping-cart">
-				<h2>Panier d'achat: 0 articles</h2>
+				<h2>Panier d'achat: {{ shoppingCart }} articles</h2>
 			</aside>
 
 			<h2>Contactez nous</h2>
@@ -67,6 +67,7 @@
 					email: "hello@cafewithavue.bakery",
 					phone: "01 88 88 88 88",
 					restaurantName: "La belle vue",
+					shoppingCart: 0,
 					simpleMenu: [
 						{
 							name: "Croissant",
@@ -75,7 +76,7 @@
 								alt: "Un croissant"
 							},
 							inStock: true,
-							quantity: 1
+							quantity: 0
 						},
 						{
 							name: "Baguette de pain",
@@ -84,7 +85,7 @@
 								alt: "Quatre baguettes de pain"
 							},
 							inStock: true,
-							quantity: 1
+							quantity: 0
 						},
 						{
 							name: "Éclair",
@@ -93,15 +94,22 @@
 								alt: "Éclair au chocolat"
 							},
 							inStock: false,
-							quantity: 1
+							quantity: 0
 						}
 					]
 				},
 				computed: {
 					copyright() {
-						const currentYear = new Date().getFullYear()
-
-						return `Copyright ${this.restaurantName} ${currentYear}`
+						const currentYear = new Date().getFullYear();
+						return `Copyright ${this.restaurantName} ${currentYear}`;
+					}
+				},
+				methods: {
+					addToShoppingCart(qty) {
+						this.shoppingCart += parseInt(qty);
+						this.simpleMenu.forEach(element => {
+							element.quantity = 0;
+						});
 					}
 				}
 			})
