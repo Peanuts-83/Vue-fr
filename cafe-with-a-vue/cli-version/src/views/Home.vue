@@ -48,7 +48,7 @@ export default {
 				{
 					name: "Croissant",
 					image: {
-						source: "/images/crossiant.jpg",
+						source: "/images/croissant.jpg",
 						alt: "Un croissant"
 					},
 					inStock: true,
