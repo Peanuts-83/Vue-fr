@@ -1,11 +1,12 @@
 <template>
   <div id="container">
     <div v-for="item in simpleMenu" :key="item.name" class="menu-item">
+      <router-link :to="item.name">
       <img
         class="menu-item__image"
         :src="item.image.source"
         :alt="item.image.alt"
-      />
+      /></router-link>
       <div>
         <h3>{{ item.name }}</h3>
         <p v-if="item.inStock">En stock</p>
@@ -31,4 +32,6 @@ export default {
   name: "MenuItem",
   props: ["simpleMenu", "addToShoppingCart"],
 };
+
+
 </script>
