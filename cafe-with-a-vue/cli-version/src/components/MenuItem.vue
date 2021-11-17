@@ -12,7 +12,7 @@ export default {
 			if (this.onSale) {
 				return (this.price * 0.9).toFixed(2)
 			} else {
-				return this.price
+				return (this.price *1.1).toFixed(2)
 			}
 		}
 	},
@@ -47,3 +47,16 @@ export default {
 		</div>
 	</div>
 </template>
+
+<style scoped lang="scss">
+	.menu-item {
+		display: flex;
+		width: 500px;
+		justify-content: space-between;
+		margin-bottom: 30px;
+	}
+
+	.menu-item__image {
+		max-width: 300px;
+	}
+</style>
