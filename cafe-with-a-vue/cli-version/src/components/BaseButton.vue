@@ -1,8 +1,7 @@
 <script>
 export default {
-  name: 'BaseButton',
-  props: ['text']
-}
+  name: "BaseButton",
+};
 </script>
 
 <template>
@@ -10,9 +9,16 @@ export default {
   to assign events to an element in a component.
   Without it, Vue does not know where to listen
   for the events. -->
-  <button v-on="$listeners">
-    {{ text }}
-  </button>
+  <div class="btn">
+      <button v-on="$listeners">
+        <slot>Default Click</slot>
+      </button>
+  </div>
 </template>
 
-<style></style>
+<style scoped>
+  button {
+    background: purple;
+    color: white;
+  }
+</style>
