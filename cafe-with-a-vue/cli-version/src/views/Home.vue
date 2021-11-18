@@ -12,7 +12,7 @@
 			<h2>Menu</h2>
 			<MenuItem
 				v-for="item in simpleMenu"
-				:addToShoppingCart="addToShoppingCart"
+				@update-shopping-cart='addToShoppingCart'
 				:name="item.name"
 				:image="item.image"
 				:price="item.price"
@@ -44,6 +44,7 @@ export default {
 		return {
 			restaurantName: "La belle vue",
 			shoppingCart: 0,
+			quantity: 0,
 			simpleMenu: [
 				{
 					name: "Croissant",
@@ -88,7 +89,7 @@ export default {
 	methods: {
 		addToShoppingCart(amount) {
 			this.shoppingCart += amount
-		}
+		},
 	}
 }
 </script>

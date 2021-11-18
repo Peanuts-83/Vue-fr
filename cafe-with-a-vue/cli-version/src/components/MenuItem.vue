@@ -2,10 +2,6 @@
 export default {
 	name: "MenuItem",
 	props: {
-		addToShoppingCart: {
-			type: Function,
-			required: true
-		},
 		image: {
 			type: Object,
 			required: true
@@ -29,7 +25,8 @@ export default {
 	},
 	data() {
 		return {
-			onSale: false
+			onSale: false,
+      qty: this.quantity
 		}
 	},
 	computed: {
@@ -39,8 +36,15 @@ export default {
 			} else {
 				return this.price
 			}
-		}
+		},
 	},
+  methods: {
+    updateShoppingCart(quantity) {
+      this.$emit('update-shopping-cart', quantity)
+      this.qty = 1
+      console.log('QTY UPDATED')
+    }
+  },
 	beforeMount() {
 		const today = new Date().getDate()
 
@@ -63,9 +67,9 @@ export default {
 			<p v-if="inStock">En stock</p>
 			<p v-else>En rupture de stock</p>
 			<div>
-				<label for="add-item-quantity">Quantité : {{ quantity }}</label>
-				<input v-model.number="quantity" id="add-item-quantity" type="number" />
-				<button @click="addToShoppingCart(quantity)">
+				<label for="add-item-quantity">Quantité : {{ qty }}</label>
+				<input v-model.number="qty" id="add-item-quantity" type="number" />
+				<button @click="updateShoppingCart(qty)">
 					Ajouter au panier
 				</button>
 			</div>
