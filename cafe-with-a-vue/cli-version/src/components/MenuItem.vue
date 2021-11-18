@@ -39,8 +39,8 @@ export default {
 		},
 	},
   methods: {
-    updateShoppingCart(quantity) {
-      this.$emit('update-shopping-cart', quantity)
+    updateShoppingCart(qty) {
+      this.$emit('update-shopping-cart', qty)
       this.qty = 1
       console.log('QTY UPDATED')
     }
