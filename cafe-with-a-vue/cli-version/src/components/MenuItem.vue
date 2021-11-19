@@ -1,3 +1,25 @@
+<template>
+	<div class="menu-item">
+		<img class="menu-item__image" :src="image.source" :alt="image.alt" />
+		<div>
+			<h3>{{ name }}</h3>
+			<p>
+				Prix : {{ generatedPrice }}
+				<span v-if="onSale">(10% de réduction !)</span>
+			</p>
+			<p v-if="inStock">En stock</p>
+			<p v-else>En rupture de stock</p>
+			<div>
+				<label for="add-item-quantity">Quantité : {{ quantity }}</label>
+				<input v-model.number="quantity" id="add-item-quantity" type="number" />
+				<BaseButton @click="updateShoppingCart(quantity)">
+					Ajouter au panier
+				</BaseButton>
+			</div>
+		</div>
+	</div>
+</template>
+
 <script>
 import BaseButton from "./BaseButton.vue"
 
@@ -57,27 +79,6 @@ export default {
 }
 </script>
 
-<template>
-	<div class="menu-item">
-		<img class="menu-item__image" :src="image.source" :alt="image.alt" />
-		<div>
-			<h3>{{ name }}</h3>
-			<p>
-				Prix : {{ generatedPrice }}
-				<span v-if="onSale">(10% de réduction !)</span>
-			</p>
-			<p v-if="inStock">En stock</p>
-			<p v-else>En rupture de stock</p>
-			<div>
-				<label for="add-item-quantity">Quantité : {{ quantity }}</label>
-				<input v-model.number="quantity" id="add-item-quantity" type="number" />
-				<BaseButton @click="updateShoppingCart(quantity)">
-					Ajouter au panier
-				</BaseButton>
-			</div>
-		</div>
-	</div>
-</template>
 
 <style lang="scss">
 .menu-item {
